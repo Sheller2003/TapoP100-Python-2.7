@@ -17,8 +17,8 @@ setup_args = dict(
     author='Toby Johnson',
     author_email='toby.e.m.Johnson@gmail.com',
     keywords=['Tapo', 'Tp-Link', 'P100'],
-    url='https://github.com/fishbigger/TapoP100',
-    download_url='https://pypi.org/project/PyP100/'
+    url='https://github.com/Sheller2003/TapoP100',
+    download_url='https://github.com/Sheller2003/TapoP100'
 )
 
 install_requires = [

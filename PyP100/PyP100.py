@@ -76,16 +76,16 @@ class P100():
 		self.publicKey  = self.keys.publickey().exportKey("PEM")
 
 	def decode_handshake_key(self, key):
-		decode: bytes = b64decode(key.encode("UTF-8"))
-		decode2: bytes = self.privateKey
+		decode = b64decode(key.encode("UTF-8"))
+		decode2 = self.privateKey
 
 		cipher = PKCS1_v1_5.new(RSA.importKey(decode2))
 		do_final = cipher.decrypt(decode, None)
 		if do_final is None:
 			raise ValueError("Decryption failed!")
 
-		b_arr:bytearray = bytearray()
-		b_arr2:bytearray = bytearray()
+		b_arr  = bytearray()
+		b_arr2  = bytearray()
 
 		for i in range(0, 16):
 			b_arr.insert(i, do_final[i])
@@ -111,7 +111,7 @@ class P100():
 		return sb
 
 	def handshake(self):
-		URL = f"http://{self.ipAddress}/app"
+		URL = "http://" + self.ipAddress  + "/app"
 		Payload = {
 			"method":"handshake",
 			"params":{
@@ -130,15 +130,15 @@ class P100():
 		self.tpLinkCipher = self.decode_handshake_key(encryptedKey)
 
 		try:
-			self.cookie = f"{self.cookie_name}={r.cookies[self.cookie_name]}"
+			self.cookie = self.cookie_name + "=" + r.cookies[self.cookie_name]
 
 		except:
 			errorCode = r.json()["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
 	def login(self):
-		URL = f"http://{self.ipAddress}/app"
+		URL = "http://" + self.ipAddress  + "/app"
 		Payload = {
 			"method":"login_device",
 			"params":{
@@ -169,10 +169,10 @@ class P100():
 		except:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
 	def turnOn(self):
-		URL = f"http://{self.ipAddress}/app?token={self.token}"
+		URL = "http://" + self.ipAddress  + "/app?token=" + self.token
 		Payload = {
 			"method": "set_device_info",
 			"params":{
@@ -202,10 +202,10 @@ class P100():
 		if ast.literal_eval(decryptedResponse)["error_code"] != 0:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
 	def turnOff(self):
-		URL = f"http://{self.ipAddress}/app?token={self.token}"
+		URL = "http://" + self.ipAddress  + "/app?token=" + self.token
 		Payload = {
 			"method": "set_device_info",
 			"params":{
@@ -235,10 +235,10 @@ class P100():
 		if ast.literal_eval(decryptedResponse)["error_code"] != 0:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
 	def getDeviceInfo(self):
-		URL = f"http://{self.ipAddress}/app?token={self.token}"
+		URL = "http://" + self.ipAddress  + "/app?token=" + self.token
 		Payload = {
 			"method": "get_device_info",
 			"requestTimeMils": 0,
@@ -268,7 +268,7 @@ class P100():
 		if data["error_code"] != 0:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 		else:
 			encodedName = data["result"]["nickname"]
 			name = b64decode(encodedName)
@@ -282,7 +282,7 @@ class P100():
 			self.turnOn()
 
 	def turnOnWithDelay(self, delay):
-		URL = f"http://{self.ipAddress}/app?token={self.token}"
+		URL = "http://" + self.ipAddress  + "/app?token=" + self.token
 		Payload = {
 			"method": "add_countdown_rule",
 			"params": {
@@ -316,10 +316,10 @@ class P100():
 		if ast.literal_eval(decryptedResponse)["error_code"] != 0:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
 	def turnOffWithDelay(self, delay):
-		URL = f"http://{self.ipAddress}/app?token={self.token}"
+		URL = "http://" + self.ipAddress  + "/app?token=" + self.token
 		Payload = {
 			"method": "add_countdown_rule",
 			"params": {
@@ -353,4 +353,4 @@ class P100():
 		if ast.literal_eval(decryptedResponse)["error_code"] != 0:
 			errorCode = ast.literal_eval(decryptedResponse)["error_code"]
 			errorMessage = self.errorCodes[str(errorCode)]
-			raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+			raise Exception("Error Code: " + errorCode + ", " + errorMessage)

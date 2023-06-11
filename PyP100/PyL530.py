@@ -10,7 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 class L530(PyP100.P100):
     def setBrightness(self, brightness):
         self.turnOn()
-        URL = f"http://{self.ipAddress}/app?token={self.token}"
+        URL = "http://" + self.ipAddress  + "/app?token=" + self.token
         Payload = {
 			"method": "set_device_info",
 			"params":{
@@ -39,11 +39,11 @@ class L530(PyP100.P100):
         if ast.literal_eval(decryptedResponse)["error_code"] != 0:
             errorCode = ast.literal_eval(decryptedResponse)["error_code"]
             errorMessage = self.errorCodes[str(errorCode)]
-            raise Exception(f"Error Code: {errorCode}, {errorMessage}")
+            raise Exception("Error Code: " + errorCode + ", " + errorMessage)
 
     def setColorTemp(self, colortemp):
         self.turnOn()
-        URL = f"http://{self.ipAddress}/app?token={self.token}"
+        URL = "http://" + self.ipAddress  + "/app?token=" + self.token
         Payload = {
         	"method": "set_device_info",
         	"params":{
@@ -77,7 +77,7 @@ class L530(PyP100.P100):
         self.turnOn()
         self.setColorTemp(0)
 
-        URL = f"http://{self.ipAddress}/app?token={self.token}"
+        URL = "http://" + self.ipAddress  + "/app?token=" + self.token
         Payload = {
         	"method": "set_device_info",
         	"params":{
