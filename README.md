@@ -4,21 +4,26 @@
 PyP100 is a Python library for controlling many of the TP-Link Tapo devices including the P100, P105, P110 plugs and the L530 and L510E bulbs.
 
 
-## Support
-
-If you would like to support the project, please consider buying me a coffee.
-
-<a href="https://www.buymeacoffee.com/fishbigger" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
-
 ## Installation
 
-PyP100 can be installed using the package manager [pip](https://pip.pypa.io/en/stable/).
+For python 3:
 
 ```bash
   pip install PyP100
 ```
-    
+
+For Python 2:
+
+Download or clone this reposetory and copy the Folder PyP100 to your Lib folder of your python installation e.g. /usr/bin/python2.7/Lib/PyP100
+
+Next to the folder are the modules requests and pycryptodome required (both are provided via pip for python 2.7)
+```bash
+  pip install requests
+```
+```bash
+  pip install pycryptodome
+```
+Hint: To ensure the copyed folder is included correctly restart your system.
 
 ## Usage
 
